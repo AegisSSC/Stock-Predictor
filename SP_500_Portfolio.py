@@ -9,7 +9,7 @@ import math
 #secrets.py file is to hide private information
 from secrets import IEX_CLOUD_API_TOKEN
 
-OUTFOLDER = str('output-files')
+OUTFOLDER = str('output-files/Basic_Portfolio')
 INFOLDER = str('stock-data')
 
 def scrape_data():
