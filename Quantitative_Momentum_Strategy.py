@@ -177,32 +177,58 @@ def Momentum_Percentiles(hqm_dataframe):
     return hqm_dataframe
 
 
-
-def main():
-    stocks = pd.read_csv(INFOLDER + '/sp_500_stocks.csv')
-    final_dataframe = create_dataframe(stocks)
-    remove_Low_Momentum_Stocks(final_dataframe)
+def Calculate_HQM_Stocks(stocks):
+    #Get the size of the portfolio
     portfolio_size = portfolio_input()
-    print('Your portfolio is: $' + str(portfolio_size))
-    final_dataframe = calculate_position(portfolio_size, final_dataframe)
-    final_dataframe.to_csv( OUTFOLDER + '/Momentum_Recommended_Trades.csv')
-    final_dataframe.to_excel(OUTFOLDER +"/Momentum_Recommended_trades.xlsx")
-
-
+    print('Your portfolio isvalued at: $' + str(portfolio_size))
 
     hqm_dataframe = get_hqm_dataframe(stocks)
     # print(hqm_dataframe)
     hqm_dataframe = Momentum_Percentiles(hqm_dataframe)
 
-
-    hqm_dataframe.sort_values(by = 'HQM Score', ascending = False, inplace = True)
-    # hqm_dataframe = hqm_dataframe.iloc[:51]
+    hqm_dataframe.sort_values(by = 'HQM Score', ascending = False, inplace = True, ignore_index = True)
+    hqm_dataframe = hqm_dataframe.iloc[:51]
     print(hqm_dataframe)
 
     hqm_dataframe = calculate_position(portfolio_size, hqm_dataframe)
-    hqm_dataframe.to_csv( OUTFOLDER + '/HQM_Recommended_Trades.csv')
-    hqm_dataframe.to_excel(OUTFOLDER +"/HQM_Recommended_trades.xlsx")
+    hqm_dataframe.to_csv( OUTFOLDER + '/high-quality-momentum/HQM_Recommended_Trades.csv')
+    hqm_dataframe.to_excel(OUTFOLDER +"/high-quality-momentum/HQM_Recommended_trades.xlsx")
+    print("Finished High Qualtiy Momentum.\n")
 
+
+def Calculate_Simple_Momentum_Stocks(stocks):
+    #create the dataframe
+    sm_dataframe = create_dataframe(stocks)
+
+    #remove low performance stocks
+    remove_Low_Momentum_Stocks(sm_dataframe)
+
+    #determine the portfolio size
+    portfolio_size = portfolio_input()
+    print('Your portfolio is: $' + str(portfolio_size))
+
+    #calculate the total positions for the client
+    sm_dataframe = calculate_position(portfolio_size, sm_dataframe)
+    
+    #output the results to a csv file
+    sm_dataframe.to_csv( OUTFOLDER + '/simple-momentum/Momentum_Recommended_Trades.csv')
+    sm_dataframe.to_excel(OUTFOLDER +"/simple-momentum/Momentum_Recommended_trades.xlsx")
+    print("Finished Calcuating Simple Momentum.\n")
+
+
+
+
+def main():
+    print("Loading in stock information")
+    stocks = pd.read_csv(INFOLDER + '/sp_500_stocks.csv')
+    print("Finished Loading in stock information.\n ")
+    print("Calculating Simple Momentum Stocks\n")    
+    Calculate_Simple_Momentum_Stocks(stocks)
+
+    print("Calculating High Quality Momentum Stocks\n")    
+    Calculate_HQM_Stocks(stocks)
+
+    
 
 if __name__ == "__main__":
     main()
