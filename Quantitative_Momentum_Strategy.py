@@ -83,7 +83,6 @@ def remove_Low_Momentum_Stocks(starting_dataframe, sort_request, remaining_rows)
 
 
 def portfolio_input():
-    global portfolio_size
     portfolio_size = input("Enter the value of your portfolio: ")
 
     try:
@@ -92,7 +91,6 @@ def portfolio_input():
         print("That's not a number! \n Try again:")
         portfolio_size = input("Enter the value of your portfolio: ")
         val = float(portfolio_size)
-    
     return val
 
 ###################################################################################################
@@ -202,7 +200,8 @@ def calculate_HQM_Score(hqm_dataframe, time_periods):
 
 ## Calculating Momentum Percentiles
 # 
-# We now need to calculate momentum percentile scores for every stock in the universe. More specifically, we need to calculate percentile scores for the following metrics for every stock:
+# We now need to calculate momentum percentile scores for every stock in the universe. 
+# More specifically, we need to calculate percentile scores for the following metrics for every stock:
 # 
 # * `One-Year Price Return`
 # * `Six-Month Price Return`
@@ -218,12 +217,12 @@ def Momentum_Percentiles(hqm_dataframe):
 
     for row in hqm_dataframe.index:
         for time_period in time_periods:
-            hqm_dataframe.loc[row, f'{time_period} Return Percentile'] =  stats.percentileofscore(hqm_dataframe[f'{time_period} Price Return'], hqm_dataframe.loc[row, f'{time_period} Price Return'])/100
+            hqm_dataframe.loc[row, f'{time_period} Return Percentile'] =  stats.percentileofscore(hqm_dataframe[f'{time_period} Price Return'],
+                                                                                                    hqm_dataframe.loc[row, f'{time_period} Price Return'])/100
 
     # Print each percentile score to make sure it was calculated properly
     # for time_period in time_periods:
         # print(hqm_dataframe[f'{time_period} Return Percentile'])
-
     hqm_dataframe = calculate_HQM_Score(hqm_dataframe, time_periods)
     return hqm_dataframe
 

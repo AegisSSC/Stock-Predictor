@@ -1,0 +1,33 @@
+ToDo List
+
+1. Using Stock information, develop an algorithm that will predict the stock price on a given interval of time with 80% Accuracy (95% confidence interval).
+    a. Analyze High Quality stocks
+    b. Analyze Index Stocks (S&P 500)
+    
+2. Using a user input, scrape the web for the required stock information. 
+
+3. Using a list of stocks in a portfolio, predict the performance of a whole portfolio on a given interval of time.
+    
+    a.) Get the prediction for all stocks in the portfolios and evaluate for a given time
+    b.) Determine the Net movement for the portfolio over the given time
+    c.) Perform a Quantitative Momentum Analysis on all stocks in the portfolios
+            i.) Report the Best Performing stocks
+            ii.) Report the Worst Performing stocks
+    d.) Suggest stocks for investment
+
+4. Develop a Controller program to start a given action
+    a.) Scrape web for required stock information and store
+    b.) Predict the stock price for a given stock on a given time interval
+    c.) Evaluate a Portfolio of stocks
+
+
+5. Create a database for referencing information used in the algorithms
+
+6. Using a list of stocks to track, Create a program that will auto scrape stock information on a weekly time interval
+    a.)On weekly time interval -> Activate Controller to perform 'a' 
+
+7. Using an API Developer, develop an API to create endpoints to retrieve predictions based on a tagged stock 
+
+8. Using a Webstie Builder, develop a Webpage to host API Docs and Project information
+
+9. Using AWS, host the finalized project for monetization
